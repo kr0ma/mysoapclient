@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.be.vdab.countries" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.be.vdab.countries" targetNamespace="http://www.be.vdab.countries">
+  <wsdl:types>
+    <xs:schema xmlns="http://www.be.vdab.countries" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.be.vdab.countries">
+	<xs:element name="getCountryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="code" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getCountryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="country" type="Country"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Country">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="capital" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="getLanguagesRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="code" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getLanguagesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="languages" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCountryResponse">
+    <wsdl:part element="tns:getCountryResponse" name="getCountryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLanguagesRequest">
+    <wsdl:part element="tns:getLanguagesRequest" name="getLanguagesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountryRequest">
+    <wsdl:part element="tns:getCountryRequest" name="getCountryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLanguagesResponse">
+    <wsdl:part element="tns:getLanguagesResponse" name="getLanguagesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Countries">
+    <wsdl:operation name="getCountry">
+      <wsdl:input message="tns:getCountryRequest" name="getCountryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getCountryResponse" name="getCountryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLanguages">
+      <wsdl:input message="tns:getLanguagesRequest" name="getLanguagesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getLanguagesResponse" name="getLanguagesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CountriesSoap11" type="tns:Countries">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCountry">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCountryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLanguages">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getLanguagesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLanguagesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CountriesService">
+    <wsdl:port binding="tns:CountriesSoap11" name="CountriesSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
